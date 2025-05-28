@@ -201,7 +201,7 @@ if uploaded_file1_bytes and (st.session_state.df1_raw is None or st.session_stat
     st.session_state.default_y_max_calculated = False
 
 if uploaded_file2_bytes and (st.session_state.df2_raw is None or st.session_state.file2_name != uploaded_file2_bytes.name):
-    st.session_state.df2_raw, st.session_state.gps2_info = parse_fit_file_data(uploaded_file2_bytes, uploaded_file2_bytes.name
+    st.session_state.df2_raw, st.session_state.gps2_info = parse_fit_file_data(uploaded_file2_bytes, uploaded_file2_bytes.name)
     st.session_state.file2_name = uploaded_file2_bytes.name
     st.session_state.default_y_max_calculated = False
 
