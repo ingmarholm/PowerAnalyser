@@ -201,7 +201,7 @@ if uploaded_file1_bytes and (st.session_state.df1_raw is None or st.session_stat
     st.session_state.default_y_max_calculated = False
 
 if uploaded_file2_bytes and (st.session_state.df2_raw is None or st.session_state.file2_name != uploaded_file2_bytes.name):
-    st.session_state.df2_raw, st.session_state.gps2_info = parse_fit_file_data(uploaded_file2_bytes, uploaded_file2_bytes.name)
+    st.session_state.df2_raw, st.session_state.gps2_info = parse_fit_file_data(uploaded_file2_bytes, uploaded_file2_bytes.name
     st.session_state.file2_name = uploaded_file2_bytes.name
     st.session_state.default_y_max_calculated = False
 
@@ -297,15 +297,15 @@ if x_axis_is_elapsed_time:
         ticktext = [format_seconds_to_hhmmss(s) for s in tickvals]
         fig.update_xaxes(title_text=x_title, tickvals=tickvals, ticktext=ticktext,
                          showspikes=True, spikemode='across', spikesnap='cursor', 
-                         spikedash='solid', spikethickness=1) # MOVED SPIKE PROPERTIES HERE
+                         spikedash='solid', spikethickness=1)
     else:
         fig.update_xaxes(title_text=x_title, nticks=10,
                          showspikes=True, spikemode='across', spikesnap='cursor',
-                         spikedash='solid', spikethickness=1) # MOVED SPIKE PROPERTIES HERE
+                         spikedash='solid', spikethickness=1)
 else:
     fig.update_xaxes(title_text=x_title, nticks=10,
                      showspikes=True, spikemode='across', spikesnap='cursor',
-                     spikedash='solid', spikethickness=1) # MOVED SPIKE PROPERTIES HERE
+                     spikedash='solid', spikethickness=1)
 
 
 fig.update_layout(
@@ -322,17 +322,17 @@ fig.update_layout(
     plot_bgcolor='rgba(0,0,0,0)', 
     paper_bgcolor='rgba(0,0,0,0)', 
     hovermode='x unified', 
-    hoverlabel=dict(bgcolor="rgba(255,255,255,0.1)", font_size=1, bordercolor="rgba(255,255,255,0)") # Adjusted hoverlabel
+    hoverlabel=dict(bgcolor="rgba(255,255,255,0.1)", font_size=1, bordercolor="rgba(255,255,255,0)")
 )
 
-fig.update_yaxes(showspikes=False) # Ensure y-axis spikes are off if not desired
+fig.update_yaxes(showspikes=False) 
 
 fig.update_xaxes(showline=True, linewidth=1, linecolor='grey', mirror=True)
 fig.update_yaxes(showline=True, linewidth=1, linecolor='grey', mirror=True)
 
 if st.session_state.show_difference_plot:
     max_abs_diff = 0
-    if 'merged_df' in locals() and not merged_df.empty and 'power_diff' in merged_df: # Check if merged_df exists
+    if 'merged_df' in locals() and not merged_df.empty and 'power_diff' in merged_df: 
         if not merged_df['power_diff'].empty:
              max_abs_diff = merged_df['power_diff'].abs().max()
     
@@ -393,13 +393,13 @@ with control_col1:
                                                          step=1, key='ni_mov_avg_k')
     if prev_mov_avg != st.session_state.moving_avg_window: st.rerun()
 
-    prev_show_diff = st.session_state.show_difference_plot # Store previous state
-    st.session_state.show_difference_plot = st.toggle(
+    prev_show_diff = st.session_state.show_difference_plot 
+    st.session_state.show_difference_plot = st.checkbox( # CHANGED to st.checkbox
         "Show Power Difference Plot (File1 - File2)", 
         value=st.session_state.show_difference_plot, 
-        key='tgl_diff_plot_k'
+        key='cb_diff_plot_k' # CHANGED key for clarity
     )
-    if prev_show_diff != st.session_state.show_difference_plot: st.rerun() # Rerun if toggle changes
+    if prev_show_diff != st.session_state.show_difference_plot: st.rerun() 
 
     if st.session_state.show_difference_plot: 
         prev_diff_color = st.session_state.diff_color
@@ -430,7 +430,11 @@ with control_col1:
     if prev_y_grid != st.session_state.y_grid_spacing: st.rerun()
 
     prev_show_grid = st.session_state.show_y_grid
-    st.session_state.show_y_grid = st.toggle("Show Y-Axis Gridlines", value=st.session_state.show_y_grid, key='tgl_y_grid_k')
+    st.session_state.show_y_grid = st.checkbox( # CHANGED to st.checkbox
+        "Show Y-Axis Gridlines", 
+        value=st.session_state.show_y_grid, 
+        key='cb_y_grid_k' # CHANGED key for clarity
+    )
     if prev_show_grid != st.session_state.show_y_grid: st.rerun()
 
 with control_col2:
