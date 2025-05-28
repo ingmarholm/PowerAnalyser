@@ -1,3 +1,5 @@
 plotly
 fitparse
 streamlit-plotly-events
+TimezoneFinder
+timezonefinder
